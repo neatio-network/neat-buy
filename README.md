@@ -1,3 +1,3 @@
-# neat-buy
+# NeatBuy
 
 Neatio buy interface.
