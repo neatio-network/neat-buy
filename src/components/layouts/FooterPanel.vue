@@ -51,7 +51,7 @@
               <!-- FACEBOOK -->
               <li class="">
                 <a
-                  href="https://www.facebook.com/NeatioNet"
+                  href="https://www.facebook.com/neatio.net"
                   target="_blank"
                   rel="noopener"
                   ><img
@@ -89,7 +89,7 @@
               <!-- GITHUB -->
               <li class="">
                 <a
-                  href="https://github.com/neatlab/neatio"
+                  href="https://github.com/neatio-network"
                   target="_blank"
                   rel="noopener"
                   ><img
@@ -118,13 +118,13 @@
 
 <style lang="scss">
   .footer-panel {
-    height: 80px;
+    height: auto;
     color: #FFFFFF;
     background-color: #24292f; 
   }
 .footer-box {
-  width: 1200px;
-      display: flex;
+  width: auto;
+      //display: flex;
  justify-content: center;
  margin: 0 auto;
 }
@@ -132,7 +132,7 @@
   .t-and-c {
     text-align: left;
     display: inline-block;
-    padding: 25px;
+    margin-top: 1rem;
     color: #ddd
   }
 
@@ -153,7 +153,7 @@
   .contact {
     text-align: right;
     display: inline-block;
-    padding: 25px;
+    margin: 1rem;
     color:#ddd;
   }
 

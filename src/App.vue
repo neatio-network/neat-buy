@@ -16,20 +16,23 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #00bfff;
-  min-width: 1200px;
   font-family: Helvetica;
+  
 }
+
 .main {
   background-image:  url('assets/hero-bg-new.jpg');
   background-blend-mode: multiply;
   background-color: #2c3e50;
   background-size: cover;
 
+
+
 }
 
 .box1 {
-  width: 1200px;
-  height: auto;
+  /* width: 1200px;
+  height: auto; */
   padding-top: 20px;
   padding-bottom: 20px;
   border-style: solid;
@@ -37,17 +40,19 @@ export default {
   border-color: azure;
   background: #000;
   display: flex;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  max-width: 480px;
   margin: 0px auto 0px auto;
   position: relative;
   text-align: left;
 }
 
+
 .box2 {
-  width: 1200px;
-  height: auto;
+  /* width: 1200px;
+  height: auto; */
   padding-bottom: 50px;
+    max-width: 480px;
+    margin: 1rem;
   border-style: solid;
   border-width: 1px;
   border-color: azure;

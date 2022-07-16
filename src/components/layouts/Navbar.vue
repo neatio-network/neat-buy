@@ -1,21 +1,15 @@
 <template>
   <div class="nav-container">
     <div class="nav-panel">
-      <router-link tag="div" to="/" class="common-inline-block ii">
+      <!-- <router-link tag="div" to="/" class="common-inline-block ii">
         <img
           src="../../assets/logo-transparent.png"
           alt="neatio logo"
           class="nav-logo logo-neatio common-inline-block"
         />
-      </router-link>
+      </router-link> -->
       <div class="common-inline-block ic" style="">
-        <router-link
-          to="/"
-          id="home"
-          :class="{ 'nav-active': $route.path === '/' }"
-          class="pgy"
-          >{{ $t("NeatBuy") }}</router-link
-        >
+
 
         <div class="connBtn">
           <button id="connectButton" @click=switchToBSCChain> <div class="conColor2">{{address}}</div> </button>
@@ -160,8 +154,8 @@ export default {
                     chainId: chainIds,
                     chainName: chainName,
                     nativeCurrency: {
-                      name: "BSC",
-                      symbol: "BSC",
+                      name: "BNB",
+                      symbol: "BNB",
                       decimals: 18
                     },
                     rpcUrls: [rpc],
@@ -186,21 +180,17 @@ export default {
   background-color: #24292f;
   height: auto;
   .nav-panel {
-    text-align: left;
-    box-sizing: border-box;
-    width: 1200px;
+    text-align: center;
+    // box-sizing: border-box;
+    // width: 640px;
     margin: 0 auto;
-    .logo-neatio {
-      width: 60px;
-      height: auto;
-      /*margin-top: 20px*/
-    }
+
     .ii {
       vertical-align: middle;
     }
     .ic {
       margin-left: 10px;
-      width: 1100px;
+      width: auto;
       & a {
         margin-right: 15px;
         color: #666666;
@@ -377,6 +367,7 @@ export default {
       background-color: #000;
       font-size: 16px;
       cursor: pointer;
+      
     }
 
     #connectButton:hover {
@@ -385,12 +376,16 @@ export default {
   }
 }
 .common-inline-block {
-  display: inline-block;  
+  //display: inline-block;  
   cursor: pointer; 
 }
 
 .connBtn {
-  float: right;
+  // float: right;
+  // margin-left: 4rem;
+  padding: 1rem;
+  margin: auto;
+  width: 50%;
 }
 
 

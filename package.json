@@ -1,7 +1,7 @@
 {
   "name": "web-ui",
   "version": "1.0.0",
-  "description": "Validator dashboard",
+  "description": "Buy Interface",
   "author": "Adrian Vasile <contact@neatio.net>",
   "private": true,
   "scripts": {
@@ -41,7 +41,7 @@
     "vue-i18n": "^8.0.0",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",
-    "web3": "^1.2.9",
+    "web3": "^1.2.6",
     "xhr-request-promise": "^0.1.2"
   },
   "devDependencies": {

@@ -1,8 +1,17 @@
 <template>
   <div class="main">
-        <div class="dashboard1" >
-      Binance Smart Chain (BSC) Address
+<div class="buylogo" v-show="address == null">
+        <img
+          src="../../assets/buylogo.png"
+          alt="buy logo"
+          class="buyimg"
+        />
+      </div>
+
+            <div class="dashboard1" v-show="address != null">
+       CONNECTED WALLET ADDRESS
     </div>
+
     <div class="dashboard2" >
       {{address}}
     </div>
@@ -13,40 +22,38 @@
     <div v-if="step == 2" style="padding-bottom: 90px">
 
      <div class="box1" >
-           <div class="not-connected" v-show="address == ''">
+           <div class="not-connected" v-show="address == null">
            Please unlock Metamask
            </div>
-        <div class="bnblogo" v-show="address != '' && chainID == '0x38'">
+        <div class="bnblogo" v-show="address != null && chainID == '0x38'">
         <img
           src="../../assets/bnb.png"
           alt="bnb logo"
           class="bnbimg"
         />
       </div>
-         <div class="wallet-address" v-show="address != '' && chainID == '0x38'">
-              <span style="color:grey;  font-weight: bold;" > Balance</span> 
-               <div class="address-title" v-show="address != '' && chainID == '0x38'">
+         <div class="wallet-address" v-show="address != null && chainID === '0x38'">
+              <span style="color:grey;  font-weight: bold;" > Your Balance</span> 
+               <div class="address-title" v-show-if="address != null && chainID === '0x38'">
               <span style="color:white" >{{balance}}</span>  <span style="color:yellow" > BNB</span>  ≈ ${{balance * bnbprice}}
               </div>
                
           </div>
 
-          <div class="wallet-address1" v-show="chainID != '0x38'">
-              <span style="color:grey;  font-weight: bold;" > Please switch to Binance Smart Chain (BSC) network by clicking the button "Wrong Network" found on the top right corner.</span> 
-   
-               
-          </div>
+
 
 
       </div>
 
 
     
-      <div class="box2">
+      <div class="box2" v-show="address != null && chainID === '0x38'">
       <div class="info-box">
      
       </div>
-                    <div class="neatrate"> 1 NEAT = {{ 0.02 / bnbprice }} BNB</div> 
+                    <div class="neatrate"> 1 NEAT = $0.015</div> 
+                    <div class="neatrate-bnb">  ≈ {{ 0.015 / bnbprice }} <span style="color:yellow" > BNB</span></div> 
+              
           <div class="itemNeat">
             <p style="font-size:14px;"></p>
             <input class="inputs"
@@ -54,14 +61,21 @@
               placeholder="Amount To Buy"
             >
           </div>
+        
+        {{totalUSD}}
+        {{totalBNB}}
  
- 
-        <div class="btn" v-show="address !== ''">
+        <div class="btn" v-show="address !== null">
           <button id="gtButton" @click="neatBuy">{{ "Let's Buy" }}</button>
         </div>
 
         
       </div>
+        <div class="noteText">
+          <div class="dashboard4" >  <span style="color:white" >TIP:</span> To switch/add Binance Smart Chain (BSC) network, click on the button "Wrong Network" found on the top of the page. </div>
+          <div class="dashboard4" >   <span style="color:white" >NOTE:</span> Sending anything other than BNB or a compatible EVM coin/token to our address may result in the loss of your coins. </div>
+          <div class="dashboard4" >   <span style="color:white" >T&C:</span> By visiting and using the Neatio website, you must agree with our terms and conditions listed at the bottom of this page.</div>
+        </div>
     </div>
   </div>
 </template>
@@ -83,10 +97,10 @@ export default {
       step: 2,
       balance: "",
       fullbalance:"",
-      address: "",
+      address: null,
       privateKey: "",
       currentChainId: '',
-      chainId: '0x38',
+      chainID: '0x38',
       staking:"",
       rewards:"",
       amount:"",
@@ -99,6 +113,9 @@ export default {
       amountToBuy: null,
       amountBNB:"",
       bnbprice:"",
+      totalUSD:'',
+      totalBNB:'',
+
     };
   },
   components: {
@@ -111,6 +128,7 @@ export default {
     this.initialize();
     this.bnbrate();
   },
+
 
 
 
@@ -191,16 +209,17 @@ export default {
 
     // BUY
      async neatBuy() {  
-    let bnbAmountToSend = this.amountToBuy * (0.02 / this.bnbprice);
+    let bnbAmountToSend = this.amountToBuy * (0.015 / this.bnbprice);
     console.log(bnbAmountToSend);
-    const amountInBNB = this.bnbAmountToSend;
+
 
      const params = [
         {
           from: this.address,
           to: "0xbbe9e63Dcb95105A3Ab5e9094B0C866F0f418987",
-          value: web3.utils.toWei('0.025', 'ether'),
-          gas: this.limit,
+          value: Utils.toHex(Utils.fromNEAT(`${bnbAmountToSend}`)),
+          gas: Utils.toHex("21000"),
+          gasPrice: Utils.toHex(Utils.fromNEAT(this.price)),     
         },
       ];
 
@@ -232,6 +251,23 @@ export default {
 
 <style scoped>
 
+@media only screen and (max-width:800px) {
+  /* For tablets: */
+  .main {
+    width: 80%;
+    padding: 0;
+  }
+  .right {
+    width: 100%;
+  }
+}
+@media only screen and (max-width:500px) {
+  /* For mobile phones: */
+  .menu, .main, .right {
+    width: auto;
+  }
+}
+
 button {
 	border: none;
    min-width: 40px;
@@ -252,6 +288,8 @@ button {
   margin-left: 10px;
   margin-top: 50px;
 }
+
+
 
 .address-title {
   margin-bottom:5px;
@@ -301,25 +339,48 @@ button {
   margin-top:10px;
 }
  .dashboard1{
-    font-size:24px;
-    font-weight:500;
-    color: #00bfFf;
+    font-size:18px;
+    font-weight: bold;
+
+    color: #00bfff;
     padding: 60px;  
  }
 
  .dashboard2{
-    font-size:20px;
-    font-weight:300;
-    color: #fff;
+    font-size:18px;
+    font-weight:bold;
+    color: #ddd;
     padding-bottom: 60px;  
+ }
+
+ .dashboard3{
+    font-size:16px;
+    font-weight: bold;
+
+    color: #00bfff;
+    padding: 60px;  
+ }
+
+  .dashboard4{
+    font-size:14px;
+     margin: 1rem;
+    color: #00bfff;
+
+
  }
 
 
 
+.noteText {
+
+  padding: 40px;
+
+}
 
  .not-connected {
-    font-size:16px;
+    font-size:18px;
     font-weight:240;
+    margin-left: 10px;
     color: #00bfFf;
     margin: auto;
     color: #a6ff33;
@@ -351,15 +412,7 @@ button {
 
   justify-content: center;
 }
-.box1 {
-  max-width: 640px;
-}
 
-.box2 {
-  max-width: 640px;
-  border-bottom-left-radius: 8px;
-  border-bottom-right-radius: 8px;
-}
 
 .bnblogo {
   margin-left: 28px;
@@ -380,6 +433,11 @@ button {
 .bnbimg {
   width: 48px;
   height: 48px;
+}
+
+.buyimg {
+  width: 480px;
+  height: auto;
 }
 
 .card-number {
@@ -410,6 +468,14 @@ button {
   text-align: center;
 }
 .neatrate {
+  text-align: center;
+  color: #a6ff33;
+  margin-bottom: 15px;
+  font-size: 24px;
+
+}
+
+.neatrate-bnb {
   text-align: center;
 }
 
