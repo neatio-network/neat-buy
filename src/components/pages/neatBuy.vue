@@ -8,13 +8,11 @@
         />
       </div>
 
-            <div class="dashboard1" v-show="address != null">
-       CONNECTED WALLET ADDRESS
-    </div>
 
-    <div class="dashboard2" >
-      {{address}}
-    </div>
+
+
+
+
     <div v-if="step == 1">    
 
       <Access @unlock="unlock"></Access>
@@ -22,22 +20,34 @@
     <div v-if="step == 2" style="padding-bottom: 90px">
 
      <div class="box1" >
+      
            <div class="not-connected" v-show="address == null">
            Please unlock Metamask
            </div>
         <div class="bnblogo" v-show="address != null && chainID == '0x38'">
+        
         <img
           src="../../assets/bnb.png"
           alt="bnb logo"
           class="bnbimg"
         />
+        
       </div>
+      
          <div class="wallet-address" v-show="address != null && chainID === '0x38'">
-              <span style="color:grey;  font-weight: bold;" > Your Balance</span> 
-               <div class="address-title" v-show-if="address != null && chainID === '0x38'">
-              <span style="color:white" >{{balance}}</span>  <span style="color:yellow" > BNB</span>  ≈ ${{balance * bnbprice}}
+                    <div class="address-title" v-show="address != null && chainID === '0x38'">
+                 
+              <span style="color:grey;  font-weight: bold;" >Address: </span><span style="color:white" >{{shortAddress}}</span>  
               </div>
-               
+                
+               <div class="address-title" v-show="address != null && chainID === '0x38'">
+                 
+              <span style="color:grey;  font-weight: bold;" >Balance: </span><span style="color:white" >{{balance}}</span>  <span style="color:yellow" > BNB</span> 
+              </div>
+              
+                             <div class="address-title" v-show="address != null && chainID === '0x38'">
+              ≈ ${{balance * bnbprice}}
+              </div>
           </div>
 
 
@@ -72,7 +82,7 @@
         
       </div>
         <div class="noteText">
-          <div class="dashboard4" >  <span style="color:white" >TIP:</span> To switch/add Binance Smart Chain (BSC) network, click on the button "Wrong Network" found on the top of the page. </div>
+          <div class="dashboard4" v-show="address == null">  <span style="color:white" >TIP:</span> To manually switch to Binance Smart Chain network, click/tap on the button "Wrong Network" found on the top of the page. </div>
           <div class="dashboard4" >   <span style="color:white" >NOTE:</span> Sending anything other than BNB or a compatible EVM coin/token to our address may result in the loss of your coins. </div>
           <div class="dashboard4" >   <span style="color:white" >T&C:</span> By visiting and using the Neatio website, you must agree with our terms and conditions listed at the bottom of this page.</div>
         </div>
@@ -98,6 +108,7 @@ export default {
       balance: "",
       fullbalance:"",
       address: null,
+      shortAddress: null,
       privateKey: "",
       currentChainId: '',
       chainID: '0x38',
@@ -154,6 +165,7 @@ export default {
         this.address = accounts[0];
         this.getBalance ()
         this.getGasPrice();
+        this.shortAddress = `${accounts[0].substr(0, 6)}...${accounts[0].slice(-4)}`;
       } catch (e) {
         console.log("request accounts error:", e);
       }
@@ -295,20 +307,20 @@ button {
   margin-bottom:5px;
  
   margin-top:10px;
-  width: 420px
+  width: auto;
 }
 
 .wallet-address {
   margin-bottom:5px;
   margin-left: 48px;
   margin-top:10px;
-  width: 420px
+  width: auto;
 }
 .wallet-address1 {
   margin-bottom:5px;
   margin-left: 48px;
   margin-top:10px;
-  width: 540px
+  width: auto;
 }
 
 .inputs {
@@ -339,7 +351,7 @@ button {
   margin-top:10px;
 }
  .dashboard1{
-    font-size:18px;
+    font-size:16px;
     font-weight: bold;
 
     color: #00bfff;
@@ -347,7 +359,7 @@ button {
  }
 
  .dashboard2{
-    font-size:18px;
+    font-size:14px;
     font-weight:bold;
     color: #ddd;
     padding-bottom: 60px;  
@@ -363,7 +375,8 @@ button {
 
   .dashboard4{
     font-size:14px;
-     margin: 1rem;
+     
+     margin-top: 20px;
     color: #00bfff;
 
 
@@ -379,7 +392,6 @@ button {
 
  .not-connected {
     font-size:18px;
-    font-weight:240;
     margin-left: 10px;
     color: #00bfFf;
     margin: auto;
@@ -416,7 +428,7 @@ button {
 
 .bnblogo {
   margin-left: 28px;
-  margin-top: 10px;
+  margin-top: 1.5rem;
 }
 .info-box {
     padding-top: 40px;
@@ -436,8 +448,9 @@ button {
 }
 
 .buyimg {
-  width: 480px;
-  height: auto;
+  width: 100vw;
+  max-width: 640px;
+
 }
 
 .card-number {

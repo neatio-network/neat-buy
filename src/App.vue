@@ -31,8 +31,7 @@ export default {
 }
 
 .box1 {
-  /* width: 1200px;
-  height: auto; */
+
   padding-top: 20px;
   padding-bottom: 20px;
   border-style: solid;
@@ -40,7 +39,8 @@ export default {
   border-color: azure;
   background: #000;
   display: flex;
-  max-width: 480px;
+  width: 95vw;
+  max-width: 720px;
   margin: 0px auto 0px auto;
   position: relative;
   text-align: left;
@@ -48,11 +48,11 @@ export default {
 
 
 .box2 {
-  /* width: 1200px;
-  height: auto; */
+
   padding-bottom: 50px;
-    max-width: 480px;
-    margin: 1rem;
+  width: 95vw;
+  max-width: 720px;
+  margin: 1rem;
   border-style: solid;
   border-width: 1px;
   border-color: azure;

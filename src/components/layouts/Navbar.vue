@@ -13,7 +13,10 @@
 
         <div class="connBtn">
           <button id="connectButton" @click=switchToBSCChain> <div class="conColor2">{{address}}</div> </button>
+     
         </div>
+
+
    
       </div>
     </div>
@@ -35,6 +38,7 @@ export default {
       chainId: '0x38',
       testChainId: '0x20d',
       address: '',
+      shortAddress: "null",
       blockchainList: [
         {
           name: this.$t("nav.blockchain.block"),
@@ -110,6 +114,7 @@ export default {
         } else {
           
           this.address = `⦿ BSC Mainnet`
+          this.shortAddress = `${accounts[0].substr(0, 6)}...${accounts[0].slice(-4)}`;
         }
 
       } catch (e) {
@@ -122,7 +127,7 @@ export default {
           this.address = this.$t('wrongNetwork');
         }else {
           const accounts = await ethereum.request({ method: 'eth_accounts' });
-          this.address = `${accounts[0].substr(0, 6)}...${accounts[0].slice(-4)}`;
+          this.shortAddress = `${accounts[0].substr(0, 6)}...${accounts[0].slice(-4)}`;
         }
       } catch (e) {
         console.log('request accounts error:', e);
